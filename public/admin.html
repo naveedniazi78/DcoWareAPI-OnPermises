@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Manage login — DocuWare Control Center</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;font-family:Inter,Segoe UI,Arial,sans-serif;background:#f4f7fb;color:#172033;display:flex;align-items:flex-start;justify-content:center;padding:40px 20px}
+.wrap{width:100%;max-width:560px}
+.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.top a{color:#2563eb;text-decoration:none;font-size:13px;font-weight:700}
+.top a:hover{text-decoration:underline}
+.eyebrow{font-size:11px;letter-spacing:.12em;font-weight:800;color:#64748b}
+h1{margin:6px 0 4px;font-size:26px}
+.sub{color:#64748b;margin:0 0 22px;font-size:14px}
+.card{background:#fff;border:1px solid #e5eaf0;border-radius:16px;padding:24px;box-shadow:0 5px 18px rgba(15,23,42,.05);margin-bottom:20px}
+.card h2{margin:0 0 4px;font-size:16px}
+.card .card-sub{color:#64748b;font-size:12px;margin:0 0 18px}
+.who{display:flex;gap:12px;align-items:center}
+.who .avatar{width:46px;height:46px;border-radius:12px;background:#2563eb;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;flex-shrink:0}
+.who b{display:block;font-size:15px}
+.who span{display:block;font-size:12px;color:#64748b;margin-top:2px}
+.user-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #eef1f6}
+.user-row:last-child{border-bottom:0}
+.user-avatar{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,#7c3aed,#2563eb);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex-shrink:0}
+.user-info{flex:1;min-width:0}
+.user-info b{font-size:14px}
+.you-badge{display:inline-block;margin-left:7px;background:#eff6ff;color:#2563eb;font-size:10px;font-weight:800;padding:2px 7px;border-radius:999px;vertical-align:middle}
+.user-info small{display:block;color:#94a3b8;font-size:11px;margin-top:1px}
+.btn-del{border:0;background:#fef2f2;color:#dc2626;font-size:12px;font-weight:700;padding:8px 12px;border-radius:8px;cursor:pointer}
+.btn-del:hover{background:#fee2e2}
+.btn-del:disabled{opacity:.4;cursor:default}
+label{display:block;font-size:12px;font-weight:700;color:#475569;margin-bottom:16px}
+input{width:100%;margin-top:7px;border:1px solid #d6dde7;border-radius:9px;padding:11px 12px;font:inherit;background:#f8fafc}
+input:focus{outline:2px solid #93c5fd;background:#fff}
+.hint{font-weight:400;color:#94a3b8;font-size:11px}
+.actions{display:flex;gap:10px;margin-top:6px;flex-wrap:wrap}
+.btn{border:0;border-radius:9px;padding:11px 16px;cursor:pointer;font-weight:700;font-size:13px}
+.primary{background:#2563eb;color:#fff}
+.primary:hover{background:#1d4ed8}
+.accent{background:#7c3aed;color:#fff}
+.accent:hover{background:#6d28d9}
+.ghost{background:#fff;color:#334155;border:1px solid #dbe2ea}
+.btn:disabled{opacity:.6;cursor:default}
+.msg{margin:0 0 16px;padding:11px 13px;border-radius:9px;font-size:13px;display:none}
+.msg.error{background:#fef2f2;border:1px solid #fecaca;color:#b91c1c;display:block}
+.msg.ok{background:#f0fdf4;border:1px solid #bbf7d0;color:#15803d;display:block}
+hr.sep{border:0;border-top:1px solid #eef1f6;margin:20px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><span class="eyebrow">ACCOUNT</span><a href="/">&larr; Back to dashboard</a></div>
+  <h1>Manage login</h1>
+  <p class="sub">Add new users, remove old ones, or change your own username and password.</p>
+
+  <div class="card">
+    <div class="who">
+      <div class="avatar" id="whoAvatar">?</div>
+      <div><b id="whoUsername">Loading…</b><span>Currently signed in</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Users</h2>
+    <p class="card-sub">Everyone who can sign in to this dashboard.</p>
+    <div id="usersList"><div class="user-row"><small>Loading…</small></div></div>
+
+    <hr class="sep">
+
+    <h2>Add a new user</h2>
+    <p class="card-sub">Create another username and password for this dashboard.</p>
+    <div class="msg" id="addUserMsg"></div>
+    <form id="addUserForm">
+      <label>Your current password <span class="hint">(confirms it's really you)</span>
+        <input type="password" id="addUserCurrentPassword" autocomplete="current-password" required>
+      </label>
+      <label>New user's username
+        <input type="text" id="addUsername" autocomplete="off" required>
+      </label>
+      <label>New user's password <span class="hint">(at least 4 characters)</span>
+        <input type="password" id="addPassword" autocomplete="new-password" minlength="4" required>
+      </label>
+      <label>Confirm password
+        <input type="password" id="addConfirmPassword" autocomplete="new-password" minlength="4" required>
+      </label>
+      <div class="actions">
+        <button class="btn accent" id="addUserBtn" type="submit">Add user</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="card">
+    <h2>Change your own login</h2>
+    <p class="card-sub">Update the username and/or password you sign in with.</p>
+    <div class="msg" id="msgBox"></div>
+    <form id="credsForm">
+      <label>Current password <span class="hint">(required to confirm changes)</span>
+        <input type="password" id="currentPassword" autocomplete="current-password" required>
+      </label>
+      <label>New username <span class="hint">(leave as-is to keep the current one)</span>
+        <input type="text" id="newUsername" autocomplete="username">
+      </label>
+      <label>New password <span class="hint">(leave blank to keep the current password)</span>
+        <input type="password" id="newPassword" autocomplete="new-password" minlength="4">
+      </label>
+      <label>Confirm new password
+        <input type="password" id="confirmPassword" autocomplete="new-password" minlength="4">
+      </label>
+      <div class="actions">
+        <button class="btn primary" id="saveBtn" type="submit">Save changes</button>
+        <button class="btn ghost" type="button" id="logoutBtn">Log out</button>
+      </div>
+    </form>
+  </div>
+</div>
+<script>
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+const msgBox = document.getElementById("msgBox");
+function showMsg(text, kind){ msgBox.textContent = text; msgBox.className = "msg " + kind; }
+
+let currentUsername = "";
+
+async function loadWhoAmI(){
+  try{
+    const r = await fetch("/api/auth/whoami");
+    const d = await r.json();
+    currentUsername = d.username || "";
+    document.getElementById("whoUsername").textContent = currentUsername || "—";
+    document.getElementById("whoAvatar").textContent = (currentUsername || "?").slice(0,1).toUpperCase();
+    document.getElementById("newUsername").placeholder = currentUsername;
+  }catch(e){
+    document.getElementById("whoUsername").textContent = "Unknown";
+  }
+}
+
+async function loadUsersList(){
+  const list = document.getElementById("usersList");
+  try{
+    const r = await fetch("/api/auth/users");
+    const d = await r.json();
+    const users = d.users || [];
+    const onlyOne = users.length <= 1;
+    list.innerHTML = users.map(u => `
+      <div class="user-row">
+        <div class="user-avatar">${esc(u.username.slice(0,1).toUpperCase())}</div>
+        <div class="user-info">
+          <b>${esc(u.username)}${u.id===d.selfId ? '<span class="you-badge">You</span>' : ''}</b>
+          <small>Added ${new Date(u.createdAt).toLocaleDateString()}</small>
+        </div>
+        <button class="btn-del" data-id="${esc(u.id)}" ${onlyOne ? 'disabled title="At least one user must remain"' : ''}>Remove</button>
+      </div>`).join('') || '<div class="user-row"><small>No users found.</small></div>';
+
+    list.querySelectorAll(".btn-del").forEach(btn=>{
+      btn.onclick = async () => {
+        if(!confirm("Remove this user? This cannot be undone.")) return;
+        try{
+          const rr = await fetch("/api/auth/users/" + encodeURIComponent(btn.dataset.id), { method: "DELETE" });
+          const dd = await rr.json().catch(()=>({}));
+          if(!rr.ok || !dd.ok) throw new Error(dd.error || "Could not remove user.");
+          if(dd.removedSelf){ location.href = "/login"; return; }
+          loadUsersList();
+        }catch(err){ alert(err.message); }
+      };
+    });
+  }catch(e){
+    list.innerHTML = '<div class="user-row"><small>Could not load users.</small></div>';
+  }
+}
+
+loadWhoAmI();
+loadUsersList();
+
+document.getElementById("addUserForm").addEventListener("submit", async (e)=>{
+  e.preventDefault();
+  const msg = document.getElementById("addUserMsg");
+  msg.className = "msg";
+  const currentPassword = document.getElementById("addUserCurrentPassword").value;
+  const username = document.getElementById("addUsername").value.trim();
+  const password = document.getElementById("addPassword").value;
+  const confirmPassword = document.getElementById("addConfirmPassword").value;
+
+  if(password !== confirmPassword){
+    msg.textContent = "Password and confirmation do not match.";
+    msg.className = "msg error";
+    return;
+  }
+
+  const btn = document.getElementById("addUserBtn");
+  btn.disabled = true; btn.textContent = "Adding…";
+  try{
+    const r = await fetch("/api/auth/users", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ currentPassword, username, password })
+    });
+    const d = await r.json().catch(()=>({}));
+    if(!r.ok || !d.ok) throw new Error(d.error || "Could not add user.");
+    msg.textContent = `User "${d.user.username}" added.`;
+    msg.className = "msg ok";
+    document.getElementById("addUserForm").reset();
+    loadUsersList();
+  }catch(err){
+    msg.textContent = err.message;
+    msg.className = "msg error";
+  }finally{
+    btn.disabled = false; btn.textContent = "Add user";
+  }
+});
+
+document.getElementById("credsForm").addEventListener("submit", async (e)=>{
+  e.preventDefault();
+  msgBox.className = "msg";
+  const currentPassword = document.getElementById("currentPassword").value;
+  const newUsername = document.getElementById("newUsername").value.trim();
+  const newPassword = document.getElementById("newPassword").value;
+  const confirmPassword = document.getElementById("confirmPassword").value;
+
+  if(newPassword && newPassword !== confirmPassword){
+    showMsg("New password and confirmation do not match.", "error");
+    return;
+  }
+
+  const saveBtn = document.getElementById("saveBtn");
+  saveBtn.disabled = true; saveBtn.textContent = "Saving…";
+  try{
+    const r = await fetch("/api/auth/change-credentials", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ currentPassword, newUsername, newPassword })
+    });
+    const d = await r.json().catch(()=>({}));
+    if(!r.ok || !d.ok) throw new Error(d.error || "Could not save changes.");
+    showMsg("Login details updated.", "ok");
+    document.getElementById("credsForm").reset();
+    loadWhoAmI();
+    loadUsersList();
+  }catch(err){
+    showMsg(err.message, "error");
+  }finally{
+    saveBtn.disabled = false; saveBtn.textContent = "Save changes";
+  }
+});
+
+document.getElementById("logoutBtn").addEventListener("click", async ()=>{
+  try{ await fetch("/api/auth/logout", { method: "POST" }); }catch(e){}
+  location.href = "/login";
+});
+</script>
+</body>
+</html>

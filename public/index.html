@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DocuWare Control Center</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:#f4f7fb;color:#172033}.shell{display:flex;min-height:100vh}.sidebar{width:250px;background:#111827;color:#fff;padding:22px 16px;display:flex;flex-direction:column}.brand{display:flex;gap:12px;align-items:center;padding:4px 8px 30px}.brand-mark{width:42px;height:42px;border-radius:12px;background:#2563eb;display:grid;place-items:center;font-weight:800}.brand strong{display:block}.brand span{display:block;color:#9ca3af;font-size:12px;margin-top:3px}.nav{width:100%;border:0;background:transparent;color:#cbd5e1;text-align:left;padding:12px 14px;border-radius:9px;margin:3px 0;cursor:pointer;font-size:14px}.nav.active,.nav:hover{background:#1f2937;color:#fff}.side-note{margin-top:auto;border-top:1px solid #374151;padding:18px 8px;display:flex;gap:10px;align-items:center}.dot{width:9px;height:9px;border-radius:50%;background:#ef4444}.dot.on{background:#22c55e}.side-note small{display:block;color:#9ca3af;margin-top:3px}main{flex:1;padding:30px 38px;max-width:1600px;margin:auto;width:100%}.topbar,.section-head{display:flex;justify-content:space-between;gap:20px;align-items:flex-start}.eyebrow{font-size:11px;letter-spacing:.12em;font-weight:800;color:#64748b}.topbar h1{margin:5px 0;font-size:30px}.sub,.section-head p{color:#64748b;margin:6px 0}.actions,.hero-actions,.form-actions{display:flex;gap:10px;flex-wrap:wrap}.btn{border:0;border-radius:9px;padding:10px 15px;cursor:pointer;font-weight:700}.primary{background:#2563eb;color:white}.ghost{background:white;color:#334155;border:1px solid #dbe2ea}.accent{background:#7c3aed;color:#fff}.section{display:none;margin-top:28px}.section.active{display:block}.hero{background:linear-gradient(135deg,#172554,#2563eb);color:white;border-radius:18px;padding:30px;display:flex;justify-content:space-between;align-items:center;min-height:250px}.hero h2{font-size:28px;max-width:700px;margin:18px 0 10px}.hero p{color:#dbeafe;max-width:720px}.hero-orb{width:150px;height:150px;border-radius:50%;background:rgba(255,255,255,.12);display:grid;place-items:center}.orb-inner{width:95px;height:95px;border-radius:50%;background:white;color:#2563eb;display:grid;place-items:center;font-weight:900;font-size:26px}.pill{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.13);padding:7px 11px;border-radius:999px;font-size:12px}.pill i{width:8px;height:8px;border-radius:50%;background:#fbbf24}.pill i.on{background:#22c55e}.grid{display:grid;gap:16px;margin-top:16px}.cards{grid-template-columns:repeat(4,1fr)}.two{grid-template-columns:1fr 1fr}.card{background:#fff;border:1px solid #e5eaf0;border-radius:14px;padding:20px;box-shadow:0 5px 18px rgba(15,23,42,.04)}.stat span,.stat small{display:block;color:#64748b}.stat strong{display:block;font-size:25px;margin:7px 0}.card-title{display:flex;justify-content:space-between;align-items:center}.card-title h3{margin:5px 0 15px}.link-btn{border:0;background:none;color:#2563eb;cursor:pointer}.kv{display:grid;grid-template-columns:140px 1fr;gap:9px;font-size:13px}.kv b{color:#64748b}.checks{font-size:13px}.checks.empty{color:#64748b}.check{padding:10px 0;border-bottom:1px solid #edf0f4}.ok{color:#16a34a}.bad{color:#dc2626}.form-card{margin-top:16px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.form-grid label,.table-tools label{font-size:12px;font-weight:700;color:#475569}.wide{grid-column:1/-1}input,select{width:100%;margin-top:7px;border:1px solid #d6dde7;border-radius:8px;padding:11px 12px;background:#fff;font:inherit}.form-actions{margin-top:20px}.notice{margin-top:18px;background:#eff6ff;border:1px solid #bfdbfe;padding:13px;border-radius:9px;color:#1e40af;font-size:13px}.cabinet-picker{display:flex;gap:10px;align-items:end}.cabinet-picker label{flex:1}.table-card{margin-top:16px}.table-tools{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:14px}.table-tools input{max-width:400px;margin:0}.table-wrap{overflow:auto;max-height:620px}table{width:100%;border-collapse:collapse;font-size:12px}th,td{text-align:left;padding:10px;border-bottom:1px solid #e8edf2;vertical-align:top}th{position:sticky;top:0;background:#f8fafc;z-index:1}.empty{text-align:center;color:#64748b;padding:30px}.mt{margin-top:12px}pre{background:#0f172a;color:#dbeafe;border-radius:10px;padding:16px;overflow:auto;min-height:300px;font-size:12px}footer{margin:30px 0;color:#94a3b8;font-size:12px;text-align:center}.toast{position:fixed;right:22px;bottom:22px;background:#111827;color:white;padding:12px 16px;border-radius:9px;opacity:0;transform:translateY(10px);transition:.2s;pointer-events:none}.toast.show{opacity:1;transform:translateY(0)}@media(max-width:1000px){.cards{grid-template-columns:1fr 1fr}.two{grid-template-columns:1fr}.sidebar{width:210px}}@media(max-width:700px){.shell{display:block}.sidebar{width:100%}.sidebar nav{display:flex;overflow:auto}.nav{white-space:nowrap;width:auto}.side-note{display:none}main{padding:20px}.hero-orb{display:none}.cards,.form-grid{grid-template-columns:1fr}.wide{grid-column:auto}.topbar{display:block}.actions{margin-top:15px}}
+
+.doc-link{border:0;background:transparent;color:#2563eb;font-weight:700;cursor:pointer;padding:0;text-decoration:underline}.doc-link:hover{opacity:.75}.preview-overlay{position:fixed;inset:0;background:rgba(15,23,42,.72);display:none;align-items:center;justify-content:center;padding:24px;z-index:9999}.preview-overlay.open{display:flex}.preview-modal{width:min(1200px,96vw);height:min(900px,94vh);background:#fff;border-radius:16px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 25px 70px rgba(0,0,0,.35)}.preview-head{display:flex;align-items:center;justify-content:space-between;padding:13px 18px;border-bottom:1px solid #e5e7eb;background:#f8fafc}.preview-title{font-weight:800;color:#172033}.preview-sub{font-size:12px;color:#64748b;margin-top:2px}.preview-actions{display:flex;gap:8px;align-items:center}.preview-close{border:0;background:#e5e7eb;width:36px;height:36px;border-radius:9px;font-size:20px;cursor:pointer}.preview-frame{border:0;flex:1;width:100%;background:#525659}.preview-loading{position:absolute;color:white;font-weight:700;display:none}.preview-overlay.loading .preview-loading{display:block}.preview-overlay.loading .preview-modal{visibility:hidden}table{min-width:1100px}th{white-space:nowrap}td{max-width:320px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.scan-tiles{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:6px}.scan-tile{border:0;border-radius:16px;padding:24px 20px;text-align:left;cursor:pointer;color:#fff;transition:transform .15s,box-shadow .15s;box-shadow:0 10px 24px rgba(15,23,42,.12)}.scan-tile:hover{transform:translateY(-3px);box-shadow:0 16px 30px rgba(15,23,42,.18)}.tile-blue{background:linear-gradient(135deg,#1d4ed8,#3b82f6)}.tile-purple{background:linear-gradient(135deg,#6d28d9,#c026d3)}.tile-icon{font-size:30px;margin-bottom:10px}.tile-title{font-weight:800;font-size:15px;line-height:1.3}.tile-sub{font-size:12px;opacity:.88;margin-top:5px}.fields-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}.field-card{background:#fff;border:1px solid #e5eaf0;border-left:4px solid #2563eb;border-radius:12px;padding:13px 15px;box-shadow:0 3px 10px rgba(15,23,42,.04)}.field-card.wide{grid-column:1/-1}.field-card-head{display:flex;align-items:center;gap:9px;margin-bottom:9px}.field-icon{width:26px;height:26px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0}.field-card label{font-size:12px;font-weight:700;color:#334155;margin:0}.field-card input{margin-top:0}@media(max-width:700px){.scan-tiles,.fields-grid{grid-template-columns:1fr}}</style>
+</head>
+<body>
+<div class="shell">
+<aside class="sidebar"><div class="brand"><div class="brand-mark" style="background:#fff;padding:6px;display:flex;align-items:center;justify-content:center"><img src="https://start.docuware.com/hs-fs/hubfs/__%20Corporate%20Website/Logos/DocuWare---Logo---Color---RGB---402px.png?width=200&amp;height=90&amp;name=DocuWare---Logo---Color---RGB---402px.png" alt="DocuWare" style="width:100%;height:100%;object-fit:contain" onerror="this.parentElement.style.background='transparent';this.parentElement.textContent='DW'"></div><div><strong>DocuWare</strong><span>Control Center</span></div></div><div style="padding:2px 8px 16px;border-bottom:1px solid #374151;margin-bottom:6px"><div style="color:#fff;font-weight:800;font-size:14px"><em>Naveed Niazi</em></div><div style="color:#9ca3af;font-size:11px;margin-top:2px"><em>Enterprise AI Consultant &amp; Solution Architect</em></div><div style="margin-top:4px"><a href="mailto:nniazi350@gmail.com" style="color:#93c5fd;font-size:11px;text-decoration:none"><em>nniazi350@gmail.com</em></a></div></div><nav><button class="nav active" data-section="overview">Overview</button><button class="nav" data-section="connection">Connection</button><button class="nav" data-section="documents">Documents</button><button class="nav" data-section="scan">Scanning New Documents</button><button class="nav" data-section="diagnostics">Diagnostics</button></nav><div class="side-note"><span class="dot" id="sideDot"></span><div><b id="sideStatus">Disconnected</b><small>API session</small></div></div><div style="padding:12px 8px 0;display:flex;gap:8px"><a href="/admin" style="flex:1;text-align:center;background:#1f2937;color:#cbd5e1;border-radius:8px;padding:9px 8px;font-size:12px;text-decoration:none;font-weight:700">Manage login</a><button id="dashboardLogoutBtn" style="flex:1;background:#1f2937;color:#cbd5e1;border:0;border-radius:8px;padding:9px 8px;font-size:12px;font-weight:700;cursor:pointer">Log out</button></div></aside>
+<main>
+<header class="topbar"><div><p class="eyebrow">DOCUWARE CLOUD INTEGRATION</p><h1>DocuWare dashboard</h1><p class="sub">Configure, authenticate, select a File Cabinet and inspect your DocuWare API connection.</p></div><div class="actions"><button class="btn ghost" id="refreshBtn">Refresh</button><button class="btn primary" id="testBtn">Test connection</button></div></header>
+<section id="overview" class="section active"><div class="hero"><div><span class="pill"><i id="statusDot"></i><span id="statusText">Not connected</span></span><h2>Welcome to your DocuWare control center.</h2><p>Select the File Cabinet you need from the Documents page. The selected cabinet is saved on the server and is used automatically for document requests.</p><div class="hero-actions"><button class="btn primary" onclick="showSection('connection')">Configure connection</button><button class="btn ghost" onclick="connectDocuWare()">Connect to DocuWare</button><button class="btn ghost" id="heroDisconnectBtn">Disconnect from Cloud</button></div></div><div class="hero-orb"><div class="orb-inner">DW</div></div></div>
+<div class="grid cards"><div class="card stat"><span>Documents loaded</span><strong id="docCount">—</strong><small id="docHint">Fetch to load data</small></div><div class="card stat"><span>File cabinet</span><strong id="cabinetShort">—</strong><small id="cabinetHint">No cabinet selected</small></div><div class="card stat"><span>Last test</span><strong id="lastTest">—</strong><small id="lastTestHint">No test yet</small></div><div class="card stat"><span>Token</span><strong id="tokenState">—</strong><small id="tokenExpiry">Authentication state</small></div></div>
+<div class="grid two"><div class="card"><div class="card-title"><div><span class="eyebrow">CONFIGURATION</span><h3>Connection snapshot</h3></div><button class="link-btn" onclick="showSection('connection')">Edit</button></div><div class="kv" id="snapshot"></div></div><div class="card"><div class="card-title"><div><span class="eyebrow">ACTIVITY</span><h3>Connection checks</h3></div></div><div id="checks" class="checks empty">Run “Test connection” to see diagnostics.</div></div></div></section>
+<section id="connection" class="section"><div class="section-head"><div><span class="eyebrow">SETTINGS</span><h2>Connection & OAuth</h2><p>Connection values are stored in <code>data/config.json</code>. The client secret is kept server-side.</p></div></div><div class="card form-card"><div class="form-grid"><label>DocuWare server URL<input id="serverUrl" type="url"></label><label>Organization name<input id="organization" type="text"></label><label>Organization ID / GUID<input id="organizationId" type="text" placeholder="Optional"></label><label>Current File Cabinet ID<input id="cabinetId" type="text"></label><label>Application / Client ID<input id="applicationId" type="text"></label><label>Client secret<input id="clientSecret" type="password" placeholder="Enter only to change"></label><label class="wide">Redirect URL<input id="redirectUrl" type="url"></label><label>Authorization URL<input id="authorizationUrl" type="url"></label><label>Token URL<input id="tokenUrl" type="url"></label><label>OAuth scope<input id="scope" type="text"></label><label>API base path<input id="apiBasePath" type="text"></label></div><div class="form-actions"><button class="btn ghost" id="loadConfigBtn">Reload</button><button class="btn primary" id="saveConfigBtn">Save configuration</button><button class="btn accent" onclick="connectDocuWare()">Connect to DocuWare</button><button class="btn ghost" id="connDisconnectBtn">Disconnect from Cloud</button></div><div class="notice"><b>Important:</b> The dashboard uses DocuWare OAuth Authorization Code Flow and the Platform API under <code>/DocuWare/Platform</code>. Do not put a real client secret into frontend code.</div></div></section>
+<section id="documents" class="section"><div class="section-head"><div><span class="eyebrow">DATA</span><h2>Documents</h2><p>Choose any accessible File Cabinet, then fetch its documents.</p></div><button class="btn primary" id="fetchBtn">Fetch data</button></div><div class="card" style="margin-top:16px"><div class="cabinet-picker"><label>File Cabinet<select id="cabinetSelect"><option value="">Connect first to load File Cabinets</option></select></label><button class="btn ghost" id="loadCabinetsBtn">Refresh cabinets</button></div><div class="notice" id="cabinetInfo">The selected File Cabinet is saved automatically when you change it.</div></div><div class="card table-card"><div class="table-tools"><input id="filter" placeholder="Filter visible rows..."><span id="rowCount">0 rows</span></div><div class="table-wrap"><table><thead id="thead"></thead><tbody id="tbody"><tr><td class="empty">No data loaded.</td></tr></tbody></table></div></div></section>
+<section id="scan" class="section">
+  <div class="section-head"><div><span class="eyebrow">CAPTURE</span><h2>Scanning new documents</h2><p>Pick a target File Cabinet, scan or upload the file(s), fill in the index values, then save.</p></div></div>
+
+  <div class="card" style="margin-top:16px">
+    <div class="card-title"><div><span class="eyebrow">STEP 1</span><h3>Target File Cabinet</h3></div><button class="link-btn" id="scanRefreshCabinets">Refresh cabinets</button></div>
+    <label>File Cabinet<select id="scanCabinetSelect"><option value="">Connect first to load File Cabinets</option></select></label>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <div class="card-title"><div><span class="eyebrow">STEP 2</span><h3>Get the document</h3></div></div>
+    <div class="scan-tiles">
+      <button class="scan-tile tile-blue" id="openCaptureBtn">
+        <div class="tile-icon">📷</div>
+        <div class="tile-title">Scan with camera / document scanner</div>
+        <div class="tile-sub">Capture one or more pages, combined into a PDF</div>
+      </button>
+      <button class="scan-tile tile-purple" id="chooseFileBtn">
+        <div class="tile-icon">📁</div>
+        <div class="tile-title">Upload local file</div>
+        <div class="tile-sub">Choose a PDF or image already on disk</div>
+      </button>
+      <input type="file" id="scanFileInput" accept="application/pdf,image/*" multiple style="display:none">
+    </div>
+    <div class="notice">Browsers can't talk to a TWAIN/WIA driver directly. "Scan with camera" uses a webcam or USB document camera to capture pages into a PDF. If you have a real desktop scanner, scan to a file with its own software first, then use "Upload local file" here. <b>If you select more than one file, they are automatically combined into a single multi-page document when you save.</b></div>
+    <div id="scanFileList" class="mt"></div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <div class="card-title"><div><span class="eyebrow">STEP 3</span><h3>Manual indexing</h3></div><button class="link-btn" id="scanLoadFieldsBtn">↻ Refresh fields</button></div>
+    <div class="notice" id="scanDialogInfo">Select a File Cabinet above — its index fields load automatically.</div>
+    <div class="fields-grid" id="scanFieldsForm"></div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <div class="form-actions">
+      <button class="btn accent" id="scanSaveBtn">Save to File Cabinet</button>
+    </div>
+    <div id="scanResults" class="mt"></div>
+  </div>
+</section>
+
+<div id="captureOverlay" class="preview-overlay" aria-hidden="true">
+  <div class="preview-modal" role="dialog" aria-modal="true" aria-labelledby="captureTitle" style="height:min(760px,94vh)">
+    <div class="preview-head">
+      <div><div id="captureTitle" class="preview-title">Scan document</div><div class="preview-sub">Capture each page, then finish to build one PDF.</div></div>
+      <div class="preview-actions"><button id="captureClose" class="preview-close" title="Close">×</button></div>
+    </div>
+    <div style="flex:1;display:flex;gap:0;min-height:0">
+      <div style="flex:1;background:#0f172a;display:flex;align-items:center;justify-content:center;position:relative">
+        <video id="captureVideo" autoplay playsinline style="max-width:100%;max-height:100%"></video>
+        <div id="captureError" class="notice" style="position:absolute;bottom:14px;left:14px;right:14px;display:none"></div>
+      </div>
+      <div style="width:220px;border-left:1px solid #e5e7eb;padding:14px;overflow:auto;background:#f8fafc">
+        <div class="eyebrow">PAGES</div>
+        <div id="capturePages" class="mt"></div>
+      </div>
+    </div>
+    <div class="preview-head" style="border-top:1px solid #e5e7eb;border-bottom:0">
+      <span id="captureCount" style="font-size:13px;color:#64748b">0 page(s) captured</span>
+      <div class="preview-actions">
+        <button class="btn ghost" id="captureShot">Capture page</button>
+        <button class="btn primary" id="captureFinish">Finish &amp; attach</button>
+      </div>
+    </div>
+  </div>
+</div>
+<canvas id="captureCanvas" style="display:none"></canvas>
+
+<section id="diagnostics" class="section"><div class="section-head"><div><span class="eyebrow">DEVELOPER TOOLS</span><h2>Diagnostics</h2><p>Inspect API responses and connection errors without exposing the client secret.</p></div></div><div class="grid two"><div class="card"><div class="card-title"><div><span class="eyebrow">QUICK API</span><h3>Request</h3></div></div><label>Relative Platform API path<input id="rawPath" value="/"></label><button class="btn primary mt" id="rawBtn">Run request</button></div><div class="card"><div class="card-title"><div><span class="eyebrow">RESPONSE</span><h3>JSON</h3></div></div><pre id="rawOutput">No request yet.</pre></div></div></section>
+<footer>DocuWare Control Center · El-Ajou Group · <span id="year"></span></footer>
+</main></div>
+<div id="previewOverlay" class="preview-overlay" aria-hidden="true">
+  <div class="preview-loading">Loading document preview…</div>
+  <div class="preview-modal" role="dialog" aria-modal="true" aria-labelledby="previewTitle">
+    <div class="preview-head">
+      <div><div id="previewTitle" class="preview-title">Document Preview</div><div id="previewSub" class="preview-sub"></div></div>
+      <div class="preview-actions"><a id="previewNewTab" class="btn ghost" href="#" target="_blank" rel="noopener">Open in new tab</a><button id="previewClose" class="preview-close" title="Close preview">×</button></div>
+    </div>
+    <iframe id="previewFrame" class="preview-frame" title="DocuWare document preview"></iframe>
+  </div>
+</div>
+</main></div><div id="toast" class="toast"></div>
+<script>
+let cfg=null, cabinets=[], rows=[];
+const $=id=>document.getElementById(id);
+const toast=(msg)=>{const t=$("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2800)};
+function showSection(id){document.querySelectorAll('.section').forEach(x=>x.classList.toggle('active',x.id===id));document.querySelectorAll('.nav').forEach(x=>x.classList.toggle('active',x.dataset.section===id));if(id==='documents')loadCabinets();if(id==='scan')loadScanCabinets();}
+document.querySelectorAll('.nav').forEach(b=>b.onclick=()=>showSection(b.dataset.section));
+function connectDocuWare(){window.open('/oauth/start','_blank','width=900,height=700');setTimeout(refreshAll,1500)}
+async function disconnectDocuWare(){
+  try{
+    await api('/api/logout',{method:'POST'});
+    toast('Disconnected from DocuWare');
+    await refreshAll();
+  }catch(e){toast(e.message)}
+}
+$("heroDisconnectBtn").onclick=disconnectDocuWare;
+$("connDisconnectBtn").onclick=disconnectDocuWare;
+$("dashboardLogoutBtn").onclick=async()=>{
+  try{await fetch('/api/auth/logout',{method:'POST'})}catch(e){}
+  location.href='/login';
+};
+async function api(url,opt){const r=await fetch(url,opt);let d;try{d=await r.json()}catch{d={error:await r.text()}}if(!r.ok)throw new Error(d.error||`HTTP ${r.status}`);return d}
+async function loadConfig(){cfg=await api('/api/config');for(const id of ['serverUrl','organization','organizationId','cabinetId','applicationId','redirectUrl','authorizationUrl','tokenUrl','scope','apiBasePath'])if($(id))$(id).value=cfg[id]||'';updateSnapshot();updateCabinetDisplay()}
+function updateSnapshot(){if(!cfg)return;$("snapshot").innerHTML=`<b>Server</b><span>${esc(cfg.serverUrl)}</span><b>Organization</b><span>${esc(cfg.organization)}</span><b>Cabinet ID</b><span>${esc(cfg.cabinetId||'Not selected')}</span><b>Client ID</b><span>${esc(cfg.applicationId)}</span><b>API</b><span>${esc(cfg.apiBasePath)}</span>`}
+function updateCabinetDisplay(){const name=cabinets.find(c=>c.id===cfg?.cabinetId)?.name;$("cabinetShort").textContent=name?short(name):cfg?.cabinetId?cfg.cabinetId.slice(0,8)+'…':'—';$("cabinetHint").textContent=name||'No cabinet selected'}
+async function saveConfig(extra={}){const body={};for(const id of ['serverUrl','organization','organizationId','cabinetId','applicationId','redirectUrl','authorizationUrl','tokenUrl','scope','apiBasePath'])body[id]=$(id).value.trim();if($("clientSecret").value)body.clientSecret=$("clientSecret").value;Object.assign(body,extra);const d=await api('/api/config',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});cfg=d.config;$("clientSecret").value='';updateSnapshot();updateCabinetDisplay();toast('Configuration saved')}
+async function loadCabinets(){try{const d=await api('/api/cabinets');cabinets=d.cabinets||[];const s=$("cabinetSelect");s.innerHTML='';if(!cabinets.length){s.innerHTML='<option value="">No File Cabinets returned</option>';return}cabinets.forEach(c=>{const o=document.createElement('option');o.value=c.id;o.textContent=`${c.name} — ${c.id}`;s.appendChild(o)});s.value=cfg?.cabinetId||d.selectedCabinetId||'';updateCabinetDisplay();$("cabinetInfo").textContent=`${cabinets.length} accessible File Cabinet(s) found.`}catch(e){$("cabinetSelect").innerHTML='<option value="">Unable to load cabinets</option>';$("cabinetInfo").textContent=e.message}}
+async function selectCabinet(){const id=$("cabinetSelect").value;if(!id)return;$("cabinetId").value=id;await saveConfig({cabinetId:id});rows=[];clearTable();}
+async function testConnection(){try{const d=await api('/api/status');const auth=d.authenticated;$("sideStatus").textContent=auth?'Connected':'Disconnected';$("sideDot").classList.toggle('on',auth);$("statusText").textContent=auth?'Connected':'Not connected';$("statusDot").classList.toggle('on',auth);$("tokenState").textContent=auth?'Active':'Not connected';$("tokenExpiry").textContent=d.tokenExpiresAt?new Date(d.tokenExpiresAt).toLocaleString():'Authentication state';$("lastTest").textContent=new Date().toLocaleTimeString();$("lastTestHint").textContent=d.ok?'Platform OK':'Check details';$("checks").innerHTML=d.checks.map(c=>`<div class="check"><b class="${c.ok?'ok':'bad'}">${c.ok?'✓':'✕'} ${esc(c.name)}</b><div>${esc(c.error||`HTTP ${c.status||''}`)}</div></div>`).join('');if(auth)await loadCabinets();toast(d.ok?'Connection test successful':'Connection test completed')}catch(e){toast(e.message)}}
+function extractData(payload){if(Array.isArray(payload))return payload;if(Array.isArray(payload.Items))return payload.Items;if(Array.isArray(payload.documents))return payload.documents;if(Array.isArray(payload.Documents))return payload.Documents;if(Array.isArray(payload.Document))return payload.Document;return []}
+function friendlyLabel(key){const labels={DWDOCID:'Document ID',DWSECTIONCOUNT:'Section count',DWSTOREDATETIME:'Stored on',DWMODDATETIME:'Modified on',DWEXTENSION:'File type',DWMODUSER:'Modified by',DWSTOREUSER:'Stored by',DWDOCSIZE:'Document size',DWPAGECOUNT:'Page count',DWDISK:'Disk number',DWLASTACCESSUSER:'Last accessed by',DWLASTACCESSDATETIME:'Last accessed on',DWCONTENTMODUSER:'Content modified by',DWCONTENTMODDATETIME:'Content modified on',DWDISKNO:'Disk number','@CABINETNAME':'File Cabinet'};if(labels[key])return labels[key];return key.replace(/_/g,' ').replace(/\b\w/g,m=>m.toUpperCase()).replace(/\s+/g,' ').trim()}
+function isTechnicalKey(k){return k.startsWith('__')||['DWSECTIONCOUNT','DWDISK','DWDISKNO','DWLASTACCESSUSER','DWLASTACCESSDATETIME','DWCONTENTMODUSER','DWCONTENTMODDATETIME'].includes(k)}
+function getDocId(row){return row.DWDOCID??row.DocumentId??row.documentId??row.Id??row.id??''}
+function formatDate(v){if(v===null||v===undefined||v==='')return '';const s=String(v);const m=s.match(/^\/Date\(([-]?\d+)(?:[+-]\d+)?\)\/$/);if(m){const d=new Date(Number(m[1]));return isNaN(d)?s:d.toLocaleString()}const d=new Date(s);return isNaN(d)?s:d.toLocaleString()}
+function displayValue(v,key){if(v===null||v===undefined)return '';if(/DATETIME|DATE|StoredOn|ModifiedOn|Date$/i.test(key)||/^\/Date\(/.test(String(v)))return formatDate(v);if(typeof v==='object')return JSON.stringify(v);return String(v)}
+function clearTable(){$("thead").innerHTML='';$("tbody").innerHTML='<tr><td class="empty">No data loaded.</td></tr>';$("rowCount").textContent='0 rows';$("docCount").textContent='0'}
+function getColumns(data){const priority=['DWDOCID','DOCUMENT_TYPE','DEVICE_IP','DEVICE_SERIAL_NUMBER_','DEVICE_MAINTENANCE_NUMBER_','@CABINETNAME','DWEXTENSION','DWSTOREUSER','DWSTOREDATETIME','DWMODUSER','DWMODDATETIME'];const keys=[...new Set(data.flatMap(r=>Object.keys(r||{})))].filter(k=>!isTechnicalKey(k));return [...priority.filter(k=>keys.includes(k)),...keys.filter(k=>!priority.includes(k)).sort((a,b)=>a.localeCompare(b))].slice(0,18)}
+function renderTable(data){const columns=getColumns(data);if(!columns.length){clearTable();return}$("thead").innerHTML=`<tr>${columns.map(k=>`<th>${esc(friendlyLabel(k))}</th>`).join('')}</tr>`;$("tbody").innerHTML=data.length?data.map((r,i)=>`<tr>${columns.map(k=>{const v=displayValue(r[k],k);const id=getDocId(r);if(k==='DWDOCID'&&id)return `<td><button class="doc-link" data-id="${esc(id)}">${esc(v||id)}</button></td>`;return `<td title="${esc(v)}">${esc(v)}</td>`}).join('')}</tr>`).join(''):'<tr><td class="empty" colspan="99">No documents returned.</td></tr>';$('rowCount').textContent=`${data.length} rows`;$('docCount').textContent=data.length;document.querySelectorAll('.doc-link').forEach(b=>b.onclick=()=>openDocument(b.dataset.id))}
+function previewUrl(id){return `/api/document/${encodeURIComponent(id)}/preview?cabinetId=${encodeURIComponent(cfg.cabinetId)}`}
+function openPreview(id){
+  if(!cfg?.cabinetId){toast('Select a File Cabinet first');return;}
+  const url=previewUrl(id);
+  $("previewTitle").textContent=`Document Preview — ${id}`;
+  $("previewSub").textContent=`File Cabinet: ${cabinets.find(c=>c.id===cfg.cabinetId)?.name||cfg.cabinetId}`;
+  $("previewNewTab").href=url;
+  const overlay=$("previewOverlay");
+  overlay.classList.add('open','loading');
+  overlay.setAttribute('aria-hidden','false');
+  const frame=$("previewFrame");
+  frame.onload=()=>overlay.classList.remove('loading');
+  frame.src=url;
+}
+function closePreview(){const overlay=$("previewOverlay");overlay.classList.remove('open','loading');overlay.setAttribute('aria-hidden','true');$("previewFrame").src='about:blank';}
+async function openDocument(id){openPreview(id)}
+async function fetchDocuments(){try{if(!cfg)await loadConfig();if(!cfg?.cabinetId){await loadCabinets();if(!cfg?.cabinetId){toast('Select a File Cabinet first');showSection('documents');return}}const d=await api(`/api/documents?limit=100&cabinetId=${encodeURIComponent(cfg.cabinetId)}`);rows=d.documents||extractData(d.data);renderTable(rows);$("docHint").textContent=`${d.count??rows.length} document(s) from selected cabinet`;toast(`${rows.length} document(s) loaded`)}catch(e){toast(e.message)}}
+function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function short(s){return s.length>22?s.slice(0,22)+'…':s}
+$("previewClose").onclick=closePreview;$("previewOverlay").onclick=e=>{if(e.target===$("previewOverlay"))closePreview()};document.addEventListener('keydown',e=>{if(e.key==='Escape')closePreview()});
+$("saveConfigBtn").onclick=()=>saveConfig().catch(e=>toast(e.message));$("loadConfigBtn").onclick=()=>loadConfig().catch(e=>toast(e.message));$("loadCabinetsBtn").onclick=()=>loadCabinets();$("cabinetSelect").onchange=()=>selectCabinet().catch(e=>toast(e.message));$("fetchBtn").onclick=fetchDocuments;$("testBtn").onclick=testConnection;$("refreshBtn").onclick=refreshAll;$("filter").oninput=e=>{const q=e.target.value.toLowerCase();renderTable(rows.filter(r=>JSON.stringify(r).toLowerCase().includes(q)))};$("rawBtn").onclick=async()=>{try{$("rawOutput").textContent=JSON.stringify(await api('/api/raw?path='+encodeURIComponent($("rawPath").value)),null,2)}catch(e){$("rawOutput").textContent=e.message}};
+async function refreshAll(){try{await loadConfig();await testConnection()}catch(e){toast(e.message)}}
+$("year").textContent=new Date().getFullYear();refreshAll();
+
+/* =========================================================
+   Scanning new documents
+   ========================================================= */
+let scanCabinets=[], scanFields=[], scanFiles=[], scanFileUrls=[], scanCabinetId='', scanDialogId='';
+
+async function loadScanCabinets(){
+  try{
+    const d=await api('/api/cabinets');
+    scanCabinets=d.cabinets||[];
+    const s=$("scanCabinetSelect");
+    s.innerHTML='';
+    if(!scanCabinets.length){s.innerHTML='<option value="">No File Cabinets returned</option>';return}
+    scanCabinets.forEach(c=>{const o=document.createElement('option');o.value=c.id;o.textContent=`${c.name} — ${c.id}`;s.appendChild(o)});
+    s.value=scanCabinetId||cfg?.cabinetId||'';
+    scanCabinetId=s.value;
+    if(scanCabinetId)loadScanFields();
+  }catch(e){
+    $("scanCabinetSelect").innerHTML='<option value="">Unable to load cabinets — connect to DocuWare first</option>';
+  }
+}
+$("scanRefreshCabinets").onclick=()=>loadScanCabinets().catch(e=>toast(e.message));
+$("scanCabinetSelect").onchange=()=>{
+  scanCabinetId=$("scanCabinetSelect").value;
+  scanDialogId='';scanFields=[];
+  $("scanFieldsForm").innerHTML='';
+  if(scanCabinetId){
+    $("scanDialogInfo").textContent='Loading index fields…';
+    loadScanFields();
+  }else{
+    $("scanDialogInfo").textContent='Select a File Cabinet above — its index fields load automatically.';
+  }
+};
+
+function renderScanFileList(){
+  scanFileUrls.forEach(u=>u&&URL.revokeObjectURL(u));
+  scanFileUrls=[];
+  if(!scanFiles.length){$("scanFileList").innerHTML='<div class="checks empty">No file selected yet.</div>';return}
+  $("scanFileList").innerHTML=scanFiles.map((f,i)=>{
+    const url=URL.createObjectURL(f);
+    scanFileUrls[i]=url;
+    const isImage=/^image\//.test(f.type);
+    const isPdf=f.type==='application/pdf'||/\.pdf$/i.test(f.name);
+    const thumb=isImage
+      ? `<img src="${url}" style="width:64px;height:64px;object-fit:cover;border-radius:8px;border:1px solid #e5e7eb;cursor:pointer" onclick="window.open('${url}','_blank')">`
+      : isPdf
+        ? `<iframe src="${url}#toolbar=0&navpanes=0" style="width:64px;height:64px;border:1px solid #e5e7eb;border-radius:8px" title="Preview of ${esc(f.name)}"></iframe>`
+        : `<div style="width:64px;height:64px;border-radius:8px;border:1px solid #e5e7eb;display:flex;align-items:center;justify-content:center;font-size:11px;color:#64748b">FILE</div>`;
+    return `<div class="check" style="display:flex;gap:12px;align-items:center">${thumb}<div style="flex:1"><b>${esc(f.name)}</b><br><small>${(f.size/1024).toFixed(1)} KB</small></div><button class="link-btn" onclick="removeScanFile(${i})">Remove</button></div>`;
+  }).join('');
+}
+function addFiles(list){for(const f of list)scanFiles.push(f);renderScanFileList();}
+function removeScanFile(i){scanFiles.splice(i,1);renderScanFileList();}
+$("chooseFileBtn").onclick=()=>$("scanFileInput").click();
+$("scanFileInput").onchange=e=>{addFiles(Array.from(e.target.files));e.target.value='';};
+
+/* ---- Camera / document-scanner capture ---- */
+let captureStream=null, capturePages=[];
+async function openCapture(){
+  capturePages=[];
+  renderCapturePages();
+  $("captureError").style.display='none';
+  const overlay=$("captureOverlay");
+  overlay.classList.add('open');
+  overlay.setAttribute('aria-hidden','false');
+  try{
+    captureStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'},audio:false});
+    $("captureVideo").srcObject=captureStream;
+  }catch(e){
+    $("captureError").style.display='block';
+    $("captureError").textContent='Could not access a camera: '+e.message+'. You can still close this and use "Upload local file" instead.';
+  }
+}
+function closeCapture(){
+  if(captureStream){captureStream.getTracks().forEach(t=>t.stop());captureStream=null}
+  $("captureVideo").srcObject=null;
+  $("captureOverlay").classList.remove('open');
+  $("captureOverlay").setAttribute('aria-hidden','true');
+}
+function renderCapturePages(){
+  $("capturePages").innerHTML=capturePages.length
+    ? capturePages.map((p,i)=>`<div style="margin-bottom:8px"><img src="${p.dataUrl}" style="width:100%;border-radius:6px;border:1px solid #e5e7eb"><div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px"><small>Page ${i+1}</small><button class="link-btn" onclick="removeCapturePage(${i})">Remove</button></div></div>`).join('')
+    : '<small style="color:#94a3b8">No pages yet</small>';
+  $("captureCount").textContent=`${capturePages.length} page(s) captured`;
+}
+function removeCapturePage(i){capturePages.splice(i,1);renderCapturePages();}
+function takeShot(){
+  const video=$("captureVideo");
+  if(!video.videoWidth){toast('Camera is not ready yet');return}
+  const canvas=$("captureCanvas");
+  canvas.width=video.videoWidth;canvas.height=video.videoHeight;
+  canvas.getContext('2d').drawImage(video,0,0);
+  capturePages.push({dataUrl:canvas.toDataURL('image/jpeg',0.92)});
+  renderCapturePages();
+}
+function loadPdfLib(){
+  return new Promise((resolve,reject)=>{
+    if(window.PDFLib){resolve();return}
+    const s=document.createElement('script');
+    s.src='https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js';
+    s.onload=()=>resolve();
+    s.onerror=()=>reject(new Error('Could not load the PDF library — check internet access.'));
+    document.head.appendChild(s);
+  });
+}
+function loadImage(src){return new Promise((res,rej)=>{const im=new Image();im.onload=()=>res(im);im.onerror=rej;im.src=src})}
+function dataUrlToBytes(dataUrl){
+  const binary=atob(dataUrl.split(',')[1]);
+  const bytes=new Uint8Array(binary.length);
+  for(let i=0;i<binary.length;i++)bytes[i]=binary.charCodeAt(i);
+  return bytes;
+}
+// Any non-PDF file (any image type) is rasterized to a JPEG via canvas so it
+// can be embedded consistently, regardless of the original image format.
+async function imageFileToJpegBytes(file){
+  const dataUrl=await new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result);r.onerror=rej;r.readAsDataURL(file)});
+  const img=await loadImage(dataUrl);
+  const canvas=document.createElement('canvas');
+  canvas.width=img.naturalWidth;canvas.height=img.naturalHeight;
+  canvas.getContext('2d').drawImage(img,0,0);
+  return dataUrlToBytes(canvas.toDataURL('image/jpeg',0.92));
+}
+async function buildPdfFromPages(pages){
+  await loadPdfLib();
+  const {PDFDocument}=PDFLib;
+  const doc=await PDFDocument.create();
+  for(const p of pages){
+    const bytes=dataUrlToBytes(p.dataUrl);
+    const img=await doc.embedJpg(bytes);
+    const page=doc.addPage([img.width,img.height]);
+    page.drawImage(img,{x:0,y:0,width:img.width,height:img.height});
+  }
+  return new Blob([await doc.save()],{type:'application/pdf'});
+}
+// Merge every selected file (existing PDFs keep their real pages; images are
+// rasterized) into one multi-page PDF, so a multi-file selection always
+// ends up as a single stored document.
+async function mergeFilesToPdf(files){
+  await loadPdfLib();
+  const {PDFDocument}=PDFLib;
+  const merged=await PDFDocument.create();
+  for(const file of files){
+    const isPdf=file.type==='application/pdf'||/\.pdf$/i.test(file.name);
+    if(isPdf){
+      const bytes=await file.arrayBuffer();
+      const src=await PDFDocument.load(bytes);
+      const copied=await merged.copyPages(src,src.getPageIndices());
+      copied.forEach(p=>merged.addPage(p));
+    }else{
+      const bytes=await imageFileToJpegBytes(file);
+      const img=await merged.embedJpg(bytes);
+      const page=merged.addPage([img.width,img.height]);
+      page.drawImage(img,{x:0,y:0,width:img.width,height:img.height});
+    }
+  }
+  return new Blob([await merged.save()],{type:'application/pdf'});
+}
+async function finishCapture(){
+  if(!capturePages.length){toast('Capture at least one page first');return}
+  try{
+    const blob=await buildPdfFromPages(capturePages);
+    const file=new File([blob],`Scan-${Date.now()}.pdf`,{type:'application/pdf'});
+    addFiles([file]);
+    closeCapture();
+    toast('Scanned page(s) attached as one PDF');
+  }catch(e){toast(e.message)}
+}
+$("openCaptureBtn").onclick=openCapture;
+$("captureClose").onclick=closeCapture;
+$("captureOverlay").onclick=e=>{if(e.target===$("captureOverlay"))closeCapture()};
+$("captureShot").onclick=takeShot;
+$("captureFinish").onclick=finishCapture;
+
+/* ---- Manual indexing ---- */
+const FIELD_STYLE={
+  String:{color:'#2563eb',icon:'Aa'},
+  Memo:{color:'#0d9488',icon:'¶'},
+  Int:{color:'#ea580c',icon:'#'},
+  Decimal:{color:'#ea580c',icon:'0.0'},
+  Date:{color:'#7c3aed',icon:'📅'},
+  DateTime:{color:'#7c3aed',icon:'🕒'},
+  Keywords:{color:'#db2777',icon:'🏷'},
+  Table:{color:'#94a3b8',icon:'▦'}
+};
+function inputTypeFor(type){if(type==='Date')return 'date';if(type==='DateTime')return 'datetime-local';if(type==='Int'||type==='Decimal')return 'number';return 'text'}
+function renderScanFieldsForm(){
+  if(!scanFields.length){$("scanFieldsForm").innerHTML='<div class="checks empty">No index fields to show.</div>';return}
+  $("scanFieldsForm").innerHTML=scanFields.map(f=>{
+    const st=FIELD_STYLE[f.type]||FIELD_STYLE.String;
+    if(f.type==='Table'){
+      return `<div class="field-card wide" style="border-left-color:${st.color}"><div class="field-card-head"><span class="field-icon" style="background:${st.color}22;color:${st.color}">${st.icon}</span><label>${esc(f.label)}</label></div><small style="color:#94a3b8">Table field — index this one later inside DocuWare.</small></div>`;
+    }
+    return `<div class="field-card" style="border-left-color:${st.color}"><div class="field-card-head"><span class="field-icon" style="background:${st.color}22;color:${st.color}">${st.icon}</span><label>${esc(f.label)}${f.required?' *':''}</label></div><input data-field-name="${esc(f.name)}" data-field-type="${esc(f.type)}" type="${inputTypeFor(f.type)}" ${f.length?`maxlength="${f.length}"`:''} ${f.required?'required':''}></div>`;
+  }).join('');
+}
+async function loadScanFields(){
+  if(!scanCabinetId){toast('Select a File Cabinet first');return}
+  $("scanDialogInfo").textContent='Loading index fields…';
+  try{
+    const dd=await api(`/api/dialogs?cabinetId=${encodeURIComponent(scanCabinetId)}`);
+    const dialogs=dd.dialogs||[];
+    if(!dialogs.length){$("scanDialogInfo").textContent='No store dialog was found for this File Cabinet.';return}
+    const dialog=dialogs[0];
+    scanDialogId=dialog.id;
+    const fdd=await api(`/api/dialogs/${encodeURIComponent(dialog.id)}/fields?cabinetId=${encodeURIComponent(scanCabinetId)}`);
+    scanFields=fdd.fields||[];
+    $("scanDialogInfo").textContent=`Using dialog "${dialog.name}" — ${scanFields.length} index field(s) found.`;
+    renderScanFieldsForm();
+  }catch(e){
+    $("scanDialogInfo").textContent='Could not load index fields: '+e.message;
+  }
+}
+$("scanLoadFieldsBtn").onclick=loadScanFields;
+
+
+/* ---- Save to File Cabinet ---- */
+async function saveScan(){
+  if(!scanCabinetId){toast('Select a target File Cabinet first');return}
+  if(!scanFiles.length){toast('Scan or upload at least one file first');return}
+  const inputs=[...document.querySelectorAll('#scanFieldsForm [data-field-name]')];
+  for(const inp of inputs){
+    if(inp.required&&!inp.value){toast(`"${inp.dataset.fieldName}" is required`);inp.focus();return}
+  }
+  const fieldValues=inputs.map(inp=>({name:inp.dataset.fieldName,type:inp.dataset.fieldType,value:inp.value}));
+
+  $("scanSaveBtn").disabled=true;
+
+  // More than one file selected -> combine them into a single multi-page
+  // PDF first, so they are always stored as ONE document.
+  let filesToSend=scanFiles;
+  if(scanFiles.length>1){
+    try{
+      toast('Combining files into one document…');
+      const mergedBlob=await mergeFilesToPdf(scanFiles);
+      filesToSend=[new File([mergedBlob],`Document-${Date.now()}.pdf`,{type:'application/pdf'})];
+    }catch(e){
+      $("scanSaveBtn").disabled=false;
+      toast('Could not combine files: '+e.message);
+      return;
+    }
+  }
+
+  const fdata=new FormData();
+  fdata.append('cabinetId',scanCabinetId);
+  fdata.append('fields',JSON.stringify(fieldValues));
+  filesToSend.forEach(f=>fdata.append('files',f,f.name));
+  try{
+    const r=await fetch('/api/documents/store',{method:'POST',body:fdata});
+    const d=await r.json().catch(()=>({}));
+    const results=d.results||[];
+    $("scanResults").innerHTML=results.length
+      ? results.map(res=>`<div class="check"><b class="${res.ok?'ok':'bad'}">${res.ok?'✓':'✕'} ${esc(res.fileName)}</b><div>${res.ok?('Document ID: '+esc(res.documentId)):esc(res.error||'Failed')}</div></div>`).join('')
+      : `<div class="checks empty">${esc(d.error||'No result returned.')}</div>`;
+    if(d.ok){toast('Document stored successfully');scanFiles=[];renderScanFileList();}
+    else toast('Storing the document failed — see details below');
+  }catch(e){
+    toast(e.message);
+  }finally{
+    $("scanSaveBtn").disabled=false;
+  }
+}
+$("scanSaveBtn").onclick=saveScan;
+</script>
+</body></html>

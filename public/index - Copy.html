@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DocuWare Control Center</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">DW</div>
+        <div><strong>DocuWare</strong><span>Control Center</span></div>
+      </div>
+      <nav>
+        <button class="nav active" data-section="overview">Overview</button>
+        <button class="nav" data-section="connection">Connection</button>
+        <button class="nav" data-section="documents">Documents</button>
+        <button class="nav" data-section="diagnostics">Diagnostics</button>
+      </nav>
+      <div class="side-note">
+        <span class="dot" id="sideDot"></span>
+        <div><b id="sideStatus">Disconnected</b><small>API session</small></div>
+      </div>
+    </aside>
+
+    <main>
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">ON-PREMISES INTEGRATION</p>
+          <h1>DocuWare dashboard</h1>
+          <p class="sub">Configure, authenticate and inspect your DocuWare API connection.</p>
+        </div>
+        <div class="actions">
+          <button class="btn ghost" id="refreshBtn">Refresh</button>
+          <button class="btn primary" id="testBtn">Test connection</button>
+        </div>
+      </header>
+
+      <section id="overview" class="section active">
+        <div class="hero">
+          <div>
+            <span class="pill"><i id="statusDot"></i><span id="statusText">Not connected</span></span>
+            <h2>Welcome to your DocuWare control center.</h2>
+            <p>Use the connection page to edit the integration values, then authenticate with your DocuWare App Registration.</p>
+            <div class="hero-actions">
+              <button class="btn primary" onclick="showSection('connection')">Configure connection</button>
+              <button class="btn ghost" onclick="connectDocuWare()">Connect to DocuWare</button>
+            </div>
+          </div>
+          <div class="hero-orb"><div class="orb-inner">DW</div></div>
+        </div>
+
+        <div class="grid cards">
+          <div class="card stat"><span>Documents loaded</span><strong id="docCount">—</strong><small id="docHint">Fetch to load data</small></div>
+          <div class="card stat"><span>File cabinet</span><strong id="cabinetShort">—</strong><small id="cabinetHint">Configured cabinet</small></div>
+          <div class="card stat"><span>Last test</span><strong id="lastTest">—</strong><small id="lastTestHint">No test yet</small></div>
+          <div class="card stat"><span>Token</span><strong id="tokenState">—</strong><small id="tokenExpiry">Authentication state</small></div>
+        </div>
+
+        <div class="grid two">
+          <div class="card">
+            <div class="card-title"><div><span class="eyebrow">CONFIGURATION</span><h3>Connection snapshot</h3></div><button class="link-btn" onclick="showSection('connection')">Edit</button></div>
+            <div class="kv" id="snapshot"></div>
+          </div>
+          <div class="card">
+            <div class="card-title"><div><span class="eyebrow">ACTIVITY</span><h3>Connection checks</h3></div></div>
+            <div id="checks" class="checks empty">Run “Test connection” to see diagnostics.</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="connection" class="section">
+        <div class="section-head"><div><span class="eyebrow">SETTINGS</span><h2>Connection & OAuth</h2><p>Values are stored on this server in <code>data/config.json</code>. The client secret is never returned to the browser.</p></div></div>
+        <div class="card form-card">
+          <div class="form-grid">
+            <label>DocuWare server URL<input id="serverUrl" type="url" placeholder="https://presentationvm/DocuWare"></label>
+            <label>Organization name<input id="organization" type="text"></label>
+            <label>Organization ID / GUID<input id="organizationId" type="text" placeholder="Optional"></label>
+            <label>File cabinet ID<input id="cabinetId" type="text"></label>
+            <label>Application / Client ID<input id="applicationId" type="text"></label>
+            <label>Client secret<input id="clientSecret" type="password" placeholder="Enter to save/change"></label>
+            <label class="wide">Redirect URL<input id="redirectUrl" type="url" placeholder="http://localhost:3000/oauth/callback"></label>
+            <label>Authorization URL<input id="authorizationUrl" type="url" placeholder="Paste App Registration authorization endpoint"></label>
+            <label>Token URL<input id="tokenUrl" type="url" placeholder="Paste App Registration token endpoint"></label>
+            <label>OAuth scope<input id="scope" type="text" placeholder="openid offline_access"></label>
+            <label>API base path<input id="apiBasePath" type="text" value="/Platform"></label>
+          </div>
+          <div class="form-actions">
+            <button class="btn ghost" id="loadConfigBtn">Reload</button>
+            <button class="btn primary" id="saveConfigBtn">Save configuration</button>
+            <button class="btn accent" onclick="connectDocuWare()">Connect to DocuWare</button>
+          </div>
+          <div class="notice">
+            <b>Important:</b> For DocuWare 7.11+ use the App Registration / OAuth Authorization Code Flow. The authorization and token endpoints are generated by DocuWare for your App Registration, so this project leaves them editable rather than guessing your on-premises identity-service URL.
+          </div>
+        </div>
+      </section>
+
+      <section id="documents" class="section">
+        <div class="section-head"><div><span class="eyebrow">DATA</span><h2>Documents</h2><p>Fetch documents from the configured file cabinet.</p></div><button class="btn primary" id="fetchBtn">Fetch data</button></div>
+        <div class="card table-card">
+          <div class="table-tools"><input id="filter" placeholder="Filter visible rows..."><span id="rowCount">0 rows</span></div>
+          <div class="table-wrap"><table><thead id="thead"></thead><tbody id="tbody"><tr><td class="empty">No data loaded.</td></tr></tbody></table></div>
+        </div>
+      </section>
+
+      <section id="diagnostics" class="section">
+        <div class="section-head"><div><span class="eyebrow">DEVELOPER TOOLS</span><h2>Diagnostics</h2><p>Inspect API responses and connection errors without exposing the client secret.</p></div></div>
+        <div class="grid two">
+          <div class="card">
+            <div class="card-title"><div><span class="eyebrow">QUICK API</span><h3>Request</h3></div></div>
+            <label>Relative Platform API path<input id="rawPath" value="/"></label>
+            <button class="btn primary mt" id="rawBtn">Run request</button>
+          </div>
+          <div class="card"><div class="card-title"><div><span class="eyebrow">RESPONSE</span><h3>JSON</h3></div></div><pre id="rawOutput">No request yet.</pre></div>
+        </div>
+      </section>
+
+      <footer>DocuWare Control Center · On-premises · <span id="year"></span></footer>
+    </main>
+  </div>
+  <div id="toast" class="toast"></div>
+  <script src="/app.js"></script>
+</body>
+</html>

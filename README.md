@@ -68,11 +68,11 @@ If more than one file is attached (any mix of scanned PDFs and uploaded PDFs/ima
 
 ## Deploy to Vercel
 
-The root-level `vercel.json` builds `server.js` as a Node.js function, routes
-all application paths to Express, and includes the `public/` dashboard assets
-in the function bundle. Import the repository into Vercel with the project root
-as the Root Directory. Do not set an Output Directory or a separate Build
-Command; Vercel uses the checked-in deployment configuration.
+Vercel detects the root-level Express app in `server.js` automatically. The
+root-level `vercel.json` includes the `public/` dashboard assets in the function
+bundle. Import the repository into Vercel with the project root as the Root
+Directory. Do not set an Output Directory or a separate Build Command; Vercel
+uses its Express defaults.
 
 Before deploying, add these environment variables in the Vercel project
 settings:

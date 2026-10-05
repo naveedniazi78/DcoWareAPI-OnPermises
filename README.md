@@ -68,9 +68,11 @@ If more than one file is attached (any mix of scanned PDFs and uploaded PDFs/ima
 
 ## Deploy to Vercel
 
-Vercel can deploy the Express application from the project root. Import the
-repository into Vercel and use the default Node.js build settings; no separate
-build command is required.
+The root-level `vercel.json` builds `server.js` as a Node.js function, routes
+all application paths to Express, and includes the `public/` dashboard assets
+in the function bundle. Import the repository into Vercel with the project root
+as the Root Directory. Do not set an Output Directory or a separate Build
+Command; Vercel uses the checked-in deployment configuration.
 
 Before deploying, add these environment variables in the Vercel project
 settings:

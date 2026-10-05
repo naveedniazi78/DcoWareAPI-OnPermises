@@ -32,7 +32,7 @@ const DEFAULT_CONFIG = {
   cabinetId: "e4c1a469-4219-4cc9-a820-a70e89f2d319",
   applicationId: "0114e0ec-75b9-ebca-b3ba-0b82ce60245d",
   clientSecret: process.env.DOCUWARE_CLIENT_SECRET || "",
-  redirectUrl: process.env.DOCUWARE_REDIRECT_URL || "http://127.0.0.1:3000/oauth/callback",
+  redirectUrl: process.env.DOCUWARE_REDIRECT_URL || "https://naveedapi.vercel.app/oauth/callback",
   authorizationUrl: "https://login-emea.docuware.cloud/92ab99d1-19f3-4a25-a582-0ce5fbb2298f/connect/authorize",
   tokenUrl: "https://login-emea.docuware.cloud/92ab99d1-19f3-4a25-a582-0ce5fbb2298f/connect/token",
   scope: "openid profile offline_access docuware.platform",
